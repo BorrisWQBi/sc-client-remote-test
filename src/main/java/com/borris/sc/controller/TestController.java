@@ -1,5 +1,6 @@
 package com.borris.sc.controller;
 
+import com.borris.sc.remote.TestRemoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,9 @@ public class TestController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
+    @Autowired
+    private TestRemoteService testRemoteService;
+
     @RequestMapping("/testRemote")
     public String testRemote(){
         String url = "http://test-client/borris/test/method1";
@@ -29,6 +33,12 @@ public class TestController {
     public String remoteGetUserList(){
         String url = "http://test-client/borris/test/getUserList";
         String userList = restTemplate.getForObject(url,String.class);
+        return userList;
+    }
+
+    @RequestMapping("/remoteGetUserListByF")
+    public String remoteGetUserListByF(){
+        String userList = testRemoteService.getUserList();
         return userList;
     }
 }
