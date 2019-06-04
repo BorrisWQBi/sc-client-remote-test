@@ -1,0 +1,48 @@
+---
+server:
+  port : 9081
+  servlet:
+    context-path: /borris2
+
+spring:
+  profiles : remote1
+  application:
+    #服务模块名称，相同的名字的client被默认为同一个集群
+    name : test-remote-client
+
+eureka:
+  client:
+    #表示eureka client间隔多久去拉取服务器注册信息,默认为30秒
+    registry-fetch-interval-seconds : 5
+    service-url:
+      defaultZone : http://borris:sctiy@localhost:7001/eureka/,http://borris:sctiy@localhost:7002/eureka/,http://borris:sctiy@localhost:7003/eureka/
+  instance:
+    #心跳间隔
+    lease-renewal-interval-in-seconds : 5
+    #心跳停止后的节点过期时间
+    lease-expiration-duration-in-seconds : 10
+    instance-id : localhost:${server.port}
+---
+server:
+  port : 9082
+  servlet:
+    context-path: /borris2
+
+spring:
+  profiles: remote2
+  application:
+    #服务模块名称，相同的名字的client被默认为同一个集群
+    name: test-remote-client
+
+eureka:
+  client:
+    #表示eureka client间隔多久去拉取服务器注册信息,默认为30秒
+    registry-fetch-interval-seconds : 5
+    service-url:
+      defaultZone: http://borris:sctiy@localhost:7001/eureka/,http://borris:sctiy@localhost:7002/eureka/,http://borris:sctiy@localhost:7003/eureka/
+  instance:
+    #心跳间隔
+    lease-renewal-interval-in-seconds : 5
+    #心跳停止后的节点过期时间
+    lease-expiration-duration-in-seconds : 10
+    instance-id : localhost:${server.port}
